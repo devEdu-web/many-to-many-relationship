@@ -24,12 +24,17 @@ const Author = {
     addAuthor(authorId, firstName, lastName, country){
         return database.query(
             `INSERT INTO Authors (first_name, last_name, Country)
-            values (?, ?, ?)
-            `, [authorId, firstName, lastName, country]
+            values (?, ?, ?)`, [authorId, firstName, lastName, country]
         )
     },
 
-    deleteAuthor(authorId){},
+    deleteAuthor(authorId){
+
+        return database.query(
+            ` DELETE FROM Authors where author_id = ?`, [authorId]
+        )
+
+    },
 
     deleteAll(){}
 

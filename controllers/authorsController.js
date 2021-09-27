@@ -1,3 +1,4 @@
+const Author = require('../models/authorsModel');
 const Authors = require('../models/authorsModel');
 
 exports.addAuthor = (req, res, next) => {
@@ -25,5 +26,12 @@ exports.getAuthor = (req, res, next) => {
         const fetchedAuthor = author[0]
         res.send(fetchedAuthor)
     })
+    .catch(err => res.send(err))
+}
+
+exports.deleteAuthor = (req, res, next) => {
+    const authorId = req.params.authorId
+    Author.deleteAuthor(authorId)
+    .then(result => res.send(result))
     .catch(err => res.send(err))
 }
