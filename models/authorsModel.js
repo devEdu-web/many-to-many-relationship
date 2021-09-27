@@ -3,7 +3,13 @@ const database = require('../util/database')
 
 const Author = {
 
-    getAuthors(){},
+    getAuthors(){
+
+        return database.query(
+            `SELECT * FROM Authors`
+        )
+
+    },
 
     getAuthor(authorId){},
 

@@ -7,3 +7,12 @@ exports.addAuthor = (req, res, next) => {
     .catch(err => res.send(err))
     
 }
+
+exports.getAuthors = (req, res, next) => {
+    Authors.getAuthors()
+    .then(authors => {
+        const allAuthors = authors[0]
+        res.send(allAuthors)
+    })
+    .catch(err => res.send(err))
+}
