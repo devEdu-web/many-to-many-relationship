@@ -11,7 +11,13 @@ const Author = {
 
     },
 
-    getAuthor(authorId){},
+    getAuthor(authorId){
+
+        return database.query(
+            `SELECT * FROM Authors WHERE author_id = ?`, [authorId]
+        )
+
+    },
 
     getAuthorsByBook(bookId){},
 

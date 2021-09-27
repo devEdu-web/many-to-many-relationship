@@ -16,3 +16,14 @@ exports.getAuthors = (req, res, next) => {
     })
     .catch(err => res.send(err))
 }
+
+exports.getAuthor = (req, res, next) => {
+    const authorId = req.params.authorId
+
+    Authors.getAuthor(authorId)
+    .then(author => {
+        const fetchedAuthor = author[0]
+        res.send(fetchedAuthor)
+    })
+    .catch(err => res.send(err))
+}
