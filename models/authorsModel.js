@@ -36,7 +36,13 @@ const Author = {
 
     },
 
-    deleteAll(){}
+    deleteAll(){
+
+        return database.query(
+            `DELETE FROM Authors`
+        )
+
+    }
 
 }
 

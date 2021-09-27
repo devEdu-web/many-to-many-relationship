@@ -35,3 +35,9 @@ exports.deleteAuthor = (req, res, next) => {
     .then(result => res.send(result))
     .catch(err => res.send(err))
 }
+
+exports.deleteAll = (req, res, next) => {
+    Author.deleteAll()
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+}
