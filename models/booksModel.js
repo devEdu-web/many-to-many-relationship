@@ -1,57 +1,51 @@
-const database = require('../util/database')
+const database = require('../util/database');
 
 const Book = {
-
-    addBook(bookTitle, bookPages, bookYear, bookPrice){
+    addBook(bookTitle, bookPages, bookYear, bookPrice) {
         return database.query(
             `INSERT INTO Books (title, pages, year, price)
-            values (?, ?, ?, ?)`, [bookTitle, bookPages, bookYear, bookPrice]
-            
-        )
+            values (?, ?, ?, ?)`,
+            [bookTitle, bookPages, bookYear, bookPrice]
+        );
     },
 
-    getBooks(){
-
-        return database.query(
-            `SELECT * FROM Books`
-        )
-
+    getBooks() {
+        return database.query(`SELECT * FROM Books`);
     },
 
-    getBook(bookId){
-
-        return database.query(
-            `SELECT * FROM Books where book_id = ?`, [bookId]
-        )
-
+    getBook(bookId) {
+        return database.query(`SELECT * FROM Books where book_id = ?`, [
+            bookId,
+        ]);
     },
 
-    getBooksByAuthor(authorId){
+    getBooksByAuthor(authorId) {
+        return database
+            .query(
+                `SELECT * FROM Books INNER JOIN books_authors ON Books.book_id = books_authors.book_id`
+            )
+            .then((books) => {
+                const fetchedBooks = books[0];
+                const booksByThisAuthor = [];
 
-        return database.query(
-            `SELECT * FROM Books INNER JOIN books_authors ON Books.book_id = books_authors.book_id`
-        )
-        .then(books => {
-            const fetchedBooks = books[0]
-            const booksByThisAuthor = []
+                fetchedBooks.forEach((book) => {
+                    if (book.author_id == authorId) {
+                        booksByThisAuthor.push(book);
+                    }
+                });
 
-            fetchedBooks.forEach(book => {
-                if(book.author_id == authorId) {
-                    booksByThisAuthor.push(book)
-                }
+                return booksByThisAuthor;
             })
-
-            return booksByThisAuthor
-        })
-        .catch(err => err)
-        
+            .catch((err) => err);
     },
 
-    deleteBooks(){},
+    deleteBooks() {
+        return database.query(`DELETE FROM Books`);
+    },
 
-    deleteBook(bookId){},
+    deleteBook(bookId) {
+        return database.query(`DELETE FROM Books where book_id = ?`, [bookId]);
+    },
+};
 
-
-}
-
-module.exports = Book
+module.exports = Book;

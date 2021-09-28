@@ -1,14 +1,12 @@
 const express = require('express');
-const app = express()
-const database = require('../util/database')
-const authorsRoutes = require('../routes/authorsRoutes')
-const booksRoutes = require('../routes/booksRoutes')
+const app = express();
+const database = require('../util/database');
+const authorsRoutes = require('../routes/authorsRoutes');
+const booksRoutes = require('../routes/booksRoutes');
 
-
-app.use(express.json())
-app.use('/api/authors', authorsRoutes)
-app.use('/api/books', booksRoutes)
-
+app.use(express.json());
+app.use('/api/authors', authorsRoutes);
+app.use('/api/books', booksRoutes);
 
 database.query(
     `CREATE TABLE IF NOT EXISTS Authors (
@@ -19,7 +17,7 @@ database.query(
 
         primary key (author_id)
     )`
-)
+);
 
 database.query(
     `CREATE TABLE IF NOT EXISTS Books (
@@ -31,7 +29,7 @@ database.query(
 
         primary key (book_id)
     )`
-)
+);
 
 database.query(
     `CREATE TABLE IF NOT EXISTS books_authors (
@@ -41,7 +39,6 @@ database.query(
         foreign key (book_id) references Books (book_id),
         foreign key (author_id) references Authors (author_id)
     )`
-)
+);
 
-
-module.exports = app
+module.exports = app;
