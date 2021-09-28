@@ -5,9 +5,7 @@ const Author = {
 
     getAuthors(){
 
-        return database.query(
-            `SELECT * FROM Authors`
-        )
+
 
     },
 

@@ -7,7 +7,7 @@ const booksRoutes = require('../routes/booksRoutes')
 
 app.use(express.json())
 app.use('/api/authors', authorsRoutes)
-// app.use('/api/books', booksRoutes)
+app.use('/api/books', booksRoutes)
 
 
 database.query(
