@@ -6,3 +6,29 @@ exports.addBook = (req, res, next) => {
     .then(result => res.send(result))
     .catch(err => res.send(err))
 }
+
+exports.getBooks = (req, res, next) => {
+    Book.getBooks()
+    .then(books => {
+        const fetchedBooks = books[0]
+        res.send(fetchedBooks)
+    })
+    .catch(err => res.send(err))
+}
+
+exports.getBook = (req, res, next) => {
+    const bookId = req.params.bookId
+    Book.getBook(bookId)
+    .then(book => {
+        const fetchedBook = book[0]
+        res.send(fetchedBook)
+    })
+    .catch(err => res.send(err))
+}
+
+exports.getBookByAuthor = (req, res, next) => {
+    const authorId = req.params.authorId
+    Book.getBooksByAuthor(authorId)
+    .then(books => res.send(books))
+    .catch(err => res.send(err))
+}

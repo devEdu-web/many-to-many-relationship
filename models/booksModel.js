@@ -10,11 +10,42 @@ const Book = {
         )
     },
 
-    getBooks(){},
+    getBooks(){
 
-    getBook(bookId){},
+        return database.query(
+            `SELECT * FROM Books`
+        )
 
-    getBooksByAuthor(authorId){},
+    },
+
+    getBook(bookId){
+
+        return database.query(
+            `SELECT * FROM Books where book_id = ?`, [bookId]
+        )
+
+    },
+
+    getBooksByAuthor(authorId){
+
+        return database.query(
+            `SELECT * FROM Books INNER JOIN books_authors ON Books.book_id = books_authors.book_id`
+        )
+        .then(books => {
+            const fetchedBooks = books[0]
+            const booksByThisAuthor = []
+
+            fetchedBooks.forEach(book => {
+                if(book.author_id == authorId) {
+                    booksByThisAuthor.push(book)
+                }
+            })
+
+            return booksByThisAuthor
+        })
+        .catch(err => err)
+        
+    },
 
     deleteBooks(){},
 
